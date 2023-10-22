@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import blooddonation from "../../assests/Blooddonation.png";
 import { useNavigate } from "react-router-dom";
 import LMNavbar from "../../components/LMNavbar";
+import Footer from "../../components/Footer";
 
 const Home = () => {
   
@@ -13,7 +14,7 @@ const Home = () => {
     <>
       <LMNavbar />
       <Box
-        sx={{ height: "100vh", background: "#f6f5f7" }}
+        sx={{background: "#f6f5f7" }}
         className="d-flex  justify-content-center align-items-center"
       >
         <Container>
@@ -32,6 +33,7 @@ const Home = () => {
           </Grid>
         </Container>
       </Box>
+      <Footer/>
     </>
   );
 };

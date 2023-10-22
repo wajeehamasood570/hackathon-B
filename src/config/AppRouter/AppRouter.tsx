@@ -8,7 +8,6 @@ import Protected from '../../screens/Protected'
 import DonorAcceptor from '../../screens/DonorAcceptor/DonorAcceptor'
 import Donor from '../../screens/DonorAcceptor/Donor'
 import Acceptor from '../../screens/DonorAcceptor/Acceptor'
-import Footer from '../../components/Footer'
 
 const AppRouter = () => {
   return (
@@ -22,7 +21,7 @@ const AppRouter = () => {
           <Route path="/donor" element={<Donor />} />
           <Route path="acceptor" element={<Acceptor />} />
         </Routes>
-        <Footer/>
+      
       </Router>
     </>
   )
