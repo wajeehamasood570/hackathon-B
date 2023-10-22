@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { Container, Form } from "react-bootstrap";
 import LMSelect from "../../components/LMSelect";
-import Person2Icon from '@mui/icons-material/Person2';
+import Person2Icon from "@mui/icons-material/Person2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,7 +43,7 @@ const style = {
 const Acceptor = () => {
   const [allDonor, setallDonor] = useState<any>([]);
   const [loader, setLoader] = useState<any>(false);
-  const roleOptions = ["A+", "A-", "O", "AB"];
+  const roleOptions = ["All", "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
   const [item, setItem] = useState<any>([]);
 
   const GetDonors = () => {
@@ -61,13 +61,42 @@ const Acceptor = () => {
       });
   };
 
-  const filterItem = (categItem: any) => {
-    console.log(categItem);
-    const updatedItem = allDonor?.filter((curElem: any) => {
-      return curElem.bloodgroup === categItem;
-    });
-    console.log(updatedItem);
-    setItem(updatedItem);
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string>(''); // Specify the type as string
+  const [filteredDonors, setFilteredDonors] = useState<any>([]);
+
+  // const filterItem = (categItem: any) => {
+  //   console.log(categItem);
+  //   const updatedItem = allDonor?.filter((curElem: any) => {
+  //     return curElem.bloodgroup === categItem;
+  //   });
+  //   console.log(updatedItem);
+  //   setItem(updatedItem);
+  // };
+
+  const filterItem = (bloodGroup: string) => {
+    console.log(bloodGroup);
+    setSelectedBloodGroup(bloodGroup);
+
+    // Define an array of allowed blood groups based on the selected filter
+    let allowedBloodGroups: string[] = [];
+
+    if (bloodGroup === "All") {
+      allowedBloodGroups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
+    } else if (bloodGroup === "A+" || bloodGroup === "A-") {
+      allowedBloodGroups = ["A+", "A-", "AB+", "AB-"];
+    } else if (bloodGroup === "O+" || bloodGroup === "O-") {
+      allowedBloodGroups = ["O+", "O-"];
+    }
+
+    console.log(allowedBloodGroups);
+
+    // Filter the donors based on the selected blood group
+    const filteredDonors = allDonor?.filter((donor: any) =>
+      allowedBloodGroups.includes(donor.bloodgroup)
+    );
+    console.log(filteredDonors);
+
+    setItem(filteredDonors);
   };
 
   useEffect(() => {
@@ -127,8 +156,8 @@ const Acceptor = () => {
                       return (
                         <>
                           <TableBody>
-                          <StyledTableCell align="center">
-                              <Person2Icon/>
+                            <StyledTableCell align="center">
+                              <Person2Icon />
                             </StyledTableCell>
                             <StyledTableCell align="center">
                               {x.username}
